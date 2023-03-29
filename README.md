@@ -37,10 +37,12 @@ To create the service using Visual Studio 2022:
 
 The service reads configuration values from a file located at c:\config.cfg. If the file is not present, the service uses default values. Here is an example configuration file:
 
-> ServiceName = IncendiaryUserService
-> SamAccountName = Incendiary
-> Name = Incendiary User
-> RandomPassword = MyRandomPassword123!
-> AdditionalGroups = Administrators, Power Users
+```
+ServiceName = IncendiaryUserService
+SamAccountName = Incendiary
+Name = Incendiary User
+RandomPassword = MyRandomPassword123!
+AdditionalGroups = Administrators, Power Users
+```
 
 In this example, the service name is "IncendiaryUserService", the SamAccountName is "Incendiary", the name is "Incendiary User", the random password is "MyRandomPassword123!", and the additional groups are "Administrators" and "Power Users". You can modify these values in the configuration file to suit your needs.
