@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.ServiceProcess;
 using System.DirectoryServices.AccountManagement;
 using Topshelf;
 using IncendiaryService;
@@ -42,22 +41,6 @@ namespace IncendiaryService
                         user.Save();
 
                         Log($"Incendiary user was created with password: {_randomPassword}");
-                    }
-                }
-
-                // Check if Incendiary user is in the local administrators group
-                using (var pc = new PrincipalContext(ContextType.Machine))
-                {
-                    var user = UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, _samAccountName);
-                    var group = GroupPrincipal.FindByIdentity(pc, IdentityType.Name, "Administrators");
-                    bool isInAdministratorsGroup = group != null && group.GetMembers().Any(x => x.SamAccountName.Equals(_samAccountName, StringComparison.OrdinalIgnoreCase));
-
-                    if (!isInAdministratorsGroup)
-                    {
-                        group?.Members.Add(user);
-                        group?.Save();
-
-                        Log("Incendiary user was added to the Administrators group");
                     }
                 }
 
