@@ -8,7 +8,6 @@ namespace IncendiaryService
     {
         private readonly string _logFilePath = "c:\\log.log";
         private readonly ILocalAccountManager _accountManager;
-        private string _serviceName = "IncendiaryUserService";
         private string _samAccountName = "Incendiary";
         private string _name = "Incendiary User";
         private string _randomPassword = GenerateRandomPassword();
@@ -72,19 +71,20 @@ namespace IncendiaryService
                 string configFilePath = "c:\\config.cfg";
 
                 if (!File.Exists(configFilePath))
+                {
                     return;
+                }
 
                 foreach (string line in File.ReadAllLines(configFilePath))
                 {
                     string[] parts = line.Split(new[] { '=' }, 2).Select(x => x.Trim()).ToArray();
                     if (parts.Length != 2)
+                    {
                         continue;
+                    }
 
                     switch (parts[0].ToLowerInvariant())
                     {
-                        case "servicename":
-                            _serviceName = parts[1];
-                            break;
                         case "samaccountname":
                             _samAccountName = parts[1];
                             break;

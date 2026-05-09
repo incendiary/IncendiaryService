@@ -1,8 +1,10 @@
 using System;
+using System.Runtime.Versioning;
 using Topshelf;
 
 internal static class Program
 {
+    [SupportedOSPlatform("windows")]
     private static void Main()
     {
         var exitCode = HostFactory.Run(x =>

@@ -1,14 +1,18 @@
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Runtime.Versioning;
 
 namespace IncendiaryService
 {
+    [SupportedOSPlatform("windows")]
     internal class WindowsLocalAccountManager : ILocalAccountManager
     {
         public bool UserExists(string samAccountName)
         {
             using (var pc = new PrincipalContext(ContextType.Machine))
+            {
                 return UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, samAccountName) != null;
+            }
         }
 
         public void CreateUser(string samAccountName, string displayName, string password)
