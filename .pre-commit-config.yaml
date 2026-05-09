@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-xml
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        name: GitLeaks — secret scanning
+
+  # dotnet format requires an SDK-style project (see issue #8).
+  # Uncomment after migrating from the legacy .csproj format.
+  #
+  # - repo: local
+  #   hooks:
+  #     - id: dotnet-format
+  #       name: dotnet format
+  #       language: system
+  #       entry: dotnet format IncendiaryService.sln --verify-no-changes
+  #       pass_filenames: false
+  #       types: [c#]
