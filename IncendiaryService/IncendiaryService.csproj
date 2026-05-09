@@ -57,6 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILocalAccountManager.cs" />
+    <Compile Include="IncendiaryUserService.cs" />
+    <Compile Include="WindowsLocalAccountManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
