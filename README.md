@@ -69,6 +69,7 @@ The service reads `C:\config.cfg` on startup. If the file does not exist, compil
 | `RandomPassword` | *(auto-generated)* | Password for the account; omit to generate a random 16-character password |
 | `AdditionalGroups` | `Administrators` | Comma-separated list of local groups to add the user to |
 | `CleanupOnStop` | `false` | When `true`, removes the user account when the service is stopped |
+| `UseEventLog` | `false` | When `true`, writes all log messages to the Windows Application event log under source `IncendiaryUserService` |
 
 Example `C:\config.cfg`:
 

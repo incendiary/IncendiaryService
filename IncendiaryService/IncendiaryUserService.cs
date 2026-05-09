@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 
 namespace IncendiaryService
 {
@@ -13,6 +15,7 @@ namespace IncendiaryService
         private string _randomPassword = GenerateRandomPassword();
         private string[] _additionalGroups = { "Administrators" };
         private bool _cleanupOnStop = false;
+        private bool _useEventLog = false;
 
         public IncendiaryUserService(ILocalAccountManager accountManager)
         {
@@ -65,6 +68,18 @@ namespace IncendiaryService
             return true;
         }
 
+        [SupportedOSPlatform("windows")]
+        private void WriteEventLog(string message)
+        {
+            const string source = "IncendiaryUserService";
+            if (!EventLog.SourceExists(source))
+            {
+                EventLog.CreateEventSource(source, "Application");
+            }
+
+            EventLog.WriteEntry(source, message, EventLogEntryType.Information);
+        }
+
         private void Log(string message)
         {
             try
@@ -74,6 +89,18 @@ namespace IncendiaryService
             catch (Exception)
             {
                 // Ignore log write failures
+            }
+
+            if (_useEventLog && OperatingSystem.IsWindows())
+            {
+                try
+                {
+                    WriteEventLog(message);
+                }
+                catch (Exception)
+                {
+                    // Ignore event log failures
+                }
             }
         }
 
@@ -115,6 +142,9 @@ namespace IncendiaryService
                             break;
                         case "cleanuponstop":
                             _cleanupOnStop = parts[1].Equals("true", StringComparison.OrdinalIgnoreCase);
+                            break;
+                        case "useeventlog":
+                            _useEventLog = parts[1].Equals("true", StringComparison.OrdinalIgnoreCase);
                             break;
                     }
                 }
