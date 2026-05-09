@@ -30,6 +30,15 @@ namespace IncendiaryService
             }
         }
 
+        public void RemoveUser(string samAccountName)
+        {
+            using (var pc = new PrincipalContext(ContextType.Machine))
+            {
+                var user = UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, samAccountName);
+                user?.Delete();
+            }
+        }
+
         public bool IsUserInGroup(string samAccountName, string groupName)
         {
             using (var pc = new PrincipalContext(ContextType.Machine))

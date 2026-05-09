@@ -50,5 +50,29 @@ namespace IncendiaryService
 
             Assert.Empty(fake.AddedToGroups);
         }
+
+        [Fact]
+        public void Stop_RemovesUser_WhenCleanupOnStopEnabled()
+        {
+            var fake = new FakeLocalAccountManager();
+            fake.SeedUser("Incendiary");
+            var service = new IncendiaryUserService(fake, cleanupOnStop: true);
+
+            service.Stop();
+
+            Assert.Contains("Incendiary", fake.RemovedUsers);
+        }
+
+        [Fact]
+        public void Stop_DoesNotRemoveUser_WhenCleanupOnStopDisabled()
+        {
+            var fake = new FakeLocalAccountManager();
+            fake.SeedUser("Incendiary");
+            var service = new IncendiaryUserService(fake, cleanupOnStop: false);
+
+            service.Stop();
+
+            Assert.Empty(fake.RemovedUsers);
+        }
     }
 }

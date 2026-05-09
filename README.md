@@ -68,6 +68,7 @@ The service reads `C:\config.cfg` on startup. If the file does not exist, compil
 | `Name` | `Incendiary User` | Display name for the local user |
 | `RandomPassword` | *(auto-generated)* | Password for the account; omit to generate a random 16-character password |
 | `AdditionalGroups` | `Administrators` | Comma-separated list of local groups to add the user to |
+| `CleanupOnStop` | `false` | When `true`, removes the user account when the service is stopped |
 
 Example `C:\config.cfg`:
 

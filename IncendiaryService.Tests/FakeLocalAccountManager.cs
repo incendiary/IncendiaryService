@@ -8,6 +8,7 @@ namespace IncendiaryService
         private readonly Dictionary<string, HashSet<string>> _groupMemberships = new();
 
         public List<string> CreatedUsers { get; } = new();
+        public List<string> RemovedUsers { get; } = new();
         public List<(string User, string Group)> AddedToGroups { get; } = new();
 
         public void SeedUser(string samAccountName) => _users.Add(samAccountName);
@@ -25,6 +26,12 @@ namespace IncendiaryService
         {
             _users.Add(samAccountName);
             CreatedUsers.Add(samAccountName);
+        }
+
+        public void RemoveUser(string samAccountName)
+        {
+            _users.Remove(samAccountName);
+            RemovedUsers.Add(samAccountName);
         }
 
         public bool IsUserInGroup(string samAccountName, string groupName) =>

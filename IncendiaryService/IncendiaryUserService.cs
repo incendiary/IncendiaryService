@@ -12,10 +12,17 @@ namespace IncendiaryService
         private string _name = "Incendiary User";
         private string _randomPassword = GenerateRandomPassword();
         private string[] _additionalGroups = { "Administrators" };
+        private bool _cleanupOnStop = false;
 
         public IncendiaryUserService(ILocalAccountManager accountManager)
         {
             _accountManager = accountManager;
+        }
+
+        internal IncendiaryUserService(ILocalAccountManager accountManager, bool cleanupOnStop)
+            : this(accountManager)
+        {
+            _cleanupOnStop = cleanupOnStop;
         }
 
         public bool Start()
@@ -48,6 +55,12 @@ namespace IncendiaryService
 
         public bool Stop()
         {
+            if (_cleanupOnStop && _accountManager.UserExists(_samAccountName))
+            {
+                _accountManager.RemoveUser(_samAccountName);
+                Log($"Incendiary user '{_samAccountName}' was removed");
+            }
+
             Log("Service stopped");
             return true;
         }
@@ -99,6 +112,9 @@ namespace IncendiaryService
                                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(x => x.Trim())
                                 .ToArray();
+                            break;
+                        case "cleanuponstop":
+                            _cleanupOnStop = parts[1].Equals("true", StringComparison.OrdinalIgnoreCase);
                             break;
                     }
                 }
