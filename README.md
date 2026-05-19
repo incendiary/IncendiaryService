@@ -98,6 +98,10 @@ AdditionalGroups = Administrators, Remote Desktop Users
 | [#8](https://github.com/incendiary/IncendiaryService/issues/8) | ✅ Done | Migrate to SDK-style `.csproj` targeting modern .NET |
 | [#9](https://github.com/incendiary/IncendiaryService/issues/9) | ✅ Done | Configurable account cleanup on service stop |
 | [#10](https://github.com/incendiary/IncendiaryService/issues/10) | ✅ Done | Optional Windows Event Log output alongside file logging |
+| [#21](https://github.com/incendiary/IncendiaryService/issues/21) | ✅ Done | CI pipeline — build (windows-latest) and test (ubuntu-latest) on push/PR |
+| [#22](https://github.com/incendiary/IncendiaryService/issues/22) | ✅ Done | xUnit test scaffold — `IncendiaryService.Tests` with fake account manager |
+| [#23](https://github.com/incendiary/IncendiaryService/issues/23) | ✅ Done | detect-secrets baseline and pre-commit hook |
+| [#24](https://github.com/incendiary/IncendiaryService/issues/24) | ✅ Done | Dependabot NuGet — weekly updates for both projects |
 
 ---
 
