@@ -14,6 +14,12 @@ repos:
       - id: gitleaks
         name: GitLeaks — secret scanning
 
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+
   - repo: local
     hooks:
       - id: dotnet-format
